@@ -1,40 +1,46 @@
 # DJITelloPy
-## [中文文档 (Chinese version of this readme)](README_CN.md)
+이 프로젝트는 DJI Tello 드론을 제어할 수 있는 Python 인터페이스입니다.
+공식 Tello SDK 및 Tello EDU SDK를 사용합니다.
+[Tello SDK](https://dl-cdn.ryzerobotics.com/downloads/tello/20180910/Tello%20SDK%20Documentation%20EN_1.3.pdf)
+[Tello EDU SDK](https://dl-cdn.ryzerobotics.com/downloads/Tello/Tello%20SDK%202.0%20User%20Guide.pdf)
 
-DJI Tello drone python interface using the official [Tello SDK](https://dl-cdn.ryzerobotics.com/downloads/tello/20180910/Tello%20SDK%20Documentation%20EN_1.3.pdf) and [Tello EDU SDK](https://dl-cdn.ryzerobotics.com/downloads/Tello/Tello%20SDK%202.0%20User%20Guide.pdf). This library has the following features:
+아래와 같은 기능을 제공합니다.
+- 모든 Tello 명령 지원
+- 비디오 스트리밍 기능 제공
+- 상태 패킷 수신 및 파싱
+- 다수의 드론 제어 가능
+- Python 3.6 이상 버전 지원
 
-- implementation of all tello commands
-- easily retrieve a video stream
-- receive and parse state packets
-- control a swarm of drones
-- support for python >= 3.6
-
-Feel free to contribute!
-
-## Install using pip
+## pip로 설치
 ```
 pip install djitellopy
 ```
+> 참고: 국내에서 pip 설치 시 속도가 느리거나 시간을 초과될 수 있습니다.
+> 국내 미러 서버(예: Tsinghua Mirror)를 사용하는 것을 권장합니다.
+> ```
+> pip install djitellopy -i https://pypi.tuna.tsinghua.edu.cn/simple/
+> ```
 
-For Linux distributions with both python2 and python3 (e.g. Debian, Ubuntu, ...) you need to run
+만약 Linux 배포판(Ubuntu, Debian 등)에서 Python 2와 Python 3을 동시에 설치한 경우, 다음 명령어를 사용하세요:
 ```
 pip3 install djitellopy
 ```
 
-## Install in developer mode
-Using the commands below you can install the repository in an _editable_ way. This allows you to modify the library and use the modified version as if you had installed it regularly.
-
+## 개발자 모드 설치
+아래의 명령어를 사용하여 수정 가능 모드로 프로젝트를 설치할 수 있습니다.
+이렇게 하면 라이브러리를 수정하면서도 설치된 것처럼 사용할 수 있습니다.
 ```
 git clone https://github.com/damiafuentes/DJITelloPy.git
 cd DJITelloPy
 pip install -e .
 ```
 
-## Usage
-### API Reference
-See [djitellopy.readthedocs.io](https://djitellopy.readthedocs.io/en/latest/) for a full reference of all classes and methods available.
+## 사용법
+### API 문서 확인
+사용 가능한 클래스와 메서드에 대한 전체 목록은 아래 링크를 참조하세요.
+[djitellopy.readthedocs.io](https://djitellopy.readthedocs.io/en/latest/)
 
-### Simple example
+### 간단한 예제
 ```python
 from djitellopy import Tello
 
@@ -50,43 +56,34 @@ tello.move_forward(100)
 tello.land()
 ```
 
-### More examples
-In the [examples](examples/) directory there are some code examples.
-Comments in the examples are mostly in both english and chinese.
+### 더 많은 예제
+[예제](examples/) 폴더에 다양한 코드 샘플이 있습니다:
 
-- [taking a picture](examples/take-picture.py)
-- [recording a video](examples/record-video.py)
-- [flying a swarm (multiple Tellos at once)](examples/simple-swarm.py)
-- [simple controlling using your keyboard](examples/manual-control-opencv.py)
-- [mission pad detection](examples/mission-pads.py)
-- [fully featured manual control using pygame](examples/manual-control-pygame.py)
+- [사진 촬영](examples/take-picture.py)
+- [비디오 녹화](examples/record-video.py)
+- [여러 드론 제어](examples/simple-swarm.py)
+- [키보드로 드론 간단히 조종하기](examples/manual-control-opencv.py)
+- [미션 패드(챌린지 카드) 인식](examples/mission-pads.py)
+- [Pygame으로 키보드 조종 구현](examples/manual-control-pygame.py)
 
-### Notes
-- If you are using the `streamon` command and the response is `Unknown command` means you have to update the Tello firmware. That can be done through the Tello app.
-- Mission pad detection and navigation is only supported by the Tello EDU.
-- Bright environment is necessary for successful use of mission pads.
-- Connecting to an existing wifi network is only supported by the Tello EDU.
-- When connected to an existing wifi network video streaming is not available (TODO: needs confirmation with the new SDK3 `port` commands)
+### 유용한 팁
+- ```streamon```명령어에서 ```Unknown command``` 오류가 발생하면 Tello 앱을 통해 펌웨어를 업데이트하세요.
+- 미션 패드 인식 및 내비게이션은 Tello EDU에서만 지원됩니다.
+- 미션 패드 인식은 밝은 환경에서만 가능합니다.
+- Tello EDU만 기존 Wi-Fi 네트워크에 연결할 수 있습니다.
+- Wi-Fi에 연결된 상태에서는 비디오 스트리밍이 비활성화됩니다.
 
-## DJITelloPy in the media and in the wild
-- \>6 Million views Youtube: [Drone Programming With Python Course](https://youtu.be/LmEcyQnfpDA?t=1282)
-- German magazine "Make": ["KI steuert Follow-Me-Drohne" (paywall)](https://www.heise.de/select/make/2021/6/2116016361503211330), [authors notes](https://www.jentsch.io/ki-artikel-im-aktuellen-make-magazin-6-21/), [github repo](https://github.com/msoftware/tello-tracking)
-- Webinar on learn.droneblocks.io: ["DJITelloPy Drone Coding"](https://learn.droneblocks.io/p/djitellopy), [github repo](https://learn.droneblocks.io/p/djitellopy)
-- Universities & Schools using DJITelloPy in projects or in class:
-    - [Ball State University in Muncie, Indiana](https://www.bsu.edu/)
-    - [Technical University Kaiserslautern](https://www.uni-kl.de/)
-    - [Lehrereinnenfortbildung Baden-Württemberg](https://lehrerfortbildung-bw.de/zsl_as_es/)
-    - [Seminar für Ausbildung und Fortbildung der Lehrkräfte Freiburg (Berufliche Schulen)](https://bs-fr.seminare-bw.de/,Lde/Startseite)
-    - [Sha Tin College, Hong Kong](https://shatincollege.edu.hk/)
-    - [University of São Paulo](https://www5.usp.br/)
-    - [add yours...](https://github.com/damiafuentes/DJITelloPy/edit/master/README.md)
-
-## Authors
+## 제작자
 
 * **Damià Fuentes Escoté**
 * **Jakob Löw**
-* [and more](https://github.com/damiafuentes/DJITelloPy/graphs/contributors)
+* [그 외](https://github.com/damiafuentes/DJITelloPy/graphs/contributors)
 
-## License
+## 제공자
+* [C0derGeorge](https://github.com/C0derGeorge)
 
-This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details
+
+## 라이선스
+
+이 프로젝트는 MIT 라이선스를 따릅니다. 자세한 내용은 [LICENSE.txt](LICENSE.txt)를 확인하세요.
+
